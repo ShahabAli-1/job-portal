@@ -15,7 +15,9 @@ Ensure you have the following installed on your machine:
 git clone https://github.com/ShahabAli-1/job-portal.git
 navigate inside the folder where you have cloned the repo: cd job-portal
 
+### Navigate inside server
 cd server
+### Run the command to install dependencies
 npm install
 
 ### Create a .env in the server folder with the following
