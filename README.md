@@ -9,8 +9,9 @@ Ensure you have the following installed on your machine:
 
 ## Installation
 
-### 1. Clone the Repository
+### 1. Follow these instructions
 
+### Clone the repo
 ```bash
 git clone https://github.com/ShahabAli-1/job-portal.git
 navigate inside the folder where you have cloned the repo: cd job-portal
