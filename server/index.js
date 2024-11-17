@@ -17,7 +17,7 @@ app.use(express.json());
 // Configure CORS to allow credentials and specific origin
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.FRONTEND_URL,
     credentials: true, // Allow credentials (cookies) to be sent
   })
 );
