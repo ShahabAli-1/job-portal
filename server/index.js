@@ -17,7 +17,7 @@ app.use(express.json());
 // Configure CORS to allow credentials and specific origin
 app.use(
   cors({
-    origin: "http://localhost:3000", // Replace with your frontend URL
+    origin: "http://localhost:3000",
     credentials: true, // Allow credentials (cookies) to be sent
   })
 );
@@ -25,7 +25,6 @@ app.use(
 app.use(cookieParser());
 
 // CSRF Protection
-// Initialize CSRF protection middleware
 const csrfProtection = csurf({
   cookie: {
     httpOnly: true,
@@ -45,7 +44,7 @@ const jobRoutes = require("./routes/jobs");
 app.use("/api", authRoutes);
 app.use("/api/jobs", jobRoutes);
 
-// Sample Route
+// Test Route
 app.get("/", (req, res) => {
   res.send("Job Portal API is running");
 });
@@ -55,14 +54,9 @@ app.use(errorHandler);
 
 // Connect to MongoDB and Start Server
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    // useFindAndModify: false, // Not needed in Mongoose 6+
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Connected to MongoDB");
-    // Start the server after successful DB connection
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });

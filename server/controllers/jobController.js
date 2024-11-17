@@ -1,8 +1,7 @@
 const Job = require("../models/Job");
 
-// @desc    Create a new job
-// @route   POST /api/jobs
-// @access  Private
+// desc =>    Create a new job
+// route =>   POST /api/jobs
 const createJob = async (req, res, next) => {
   const { title, description, company, location } = req.body;
 
@@ -12,7 +11,7 @@ const createJob = async (req, res, next) => {
   }
 
   try {
-    const job = await Job.create({
+    const newJob = await Job.create({
       title,
       description,
       company,
@@ -20,7 +19,9 @@ const createJob = async (req, res, next) => {
       postedBy: req.user._id,
     });
 
-    res.status(201).json(job);
+    const savedJob = await newJob.save();
+    const populatedJob = await savedJob.populate("postedBy", "username email");
+    res.status(201).json(populatedJob);
   } catch (error) {
     console.error(error);
     res.status(500);
@@ -28,12 +29,13 @@ const createJob = async (req, res, next) => {
   }
 };
 
-// @desc    Get all jobs
-// @route   GET /api/jobs
-// @access  Private
+// desc =>   Get all jobs
+// route =>   GET /api/jobs
 const getJobs = async (req, res, next) => {
   try {
-    const jobs = await Job.find().populate("postedBy", "username email");
+    const jobs = await Job.find()
+      .populate("postedBy", "username email")
+      .sort({ createdAt: -1 });
     res.json(jobs);
   } catch (error) {
     console.error(error);
@@ -42,9 +44,8 @@ const getJobs = async (req, res, next) => {
   }
 };
 
-// @desc    Update a job
-// @route   PUT /api/jobs/:id
-// @access  Private
+// desc =>    Update a job
+// route =>   PUT /api/jobs/:id
 const updateJob = async (req, res, next) => {
   const { id } = req.params;
   const { title, description, company, location } = req.body;
@@ -70,7 +71,11 @@ const updateJob = async (req, res, next) => {
     if (location) job.location = location;
 
     const updatedJob = await job.save();
-    res.json(updatedJob);
+    const populatedUpdatedJob = await updatedJob.populate(
+      "postedBy",
+      "username email"
+    );
+    res.status(201).json(populatedUpdatedJob);
   } catch (error) {
     console.error(error);
     res.status(500);
@@ -78,9 +83,8 @@ const updateJob = async (req, res, next) => {
   }
 };
 
-// @desc    Delete a job
-// @route   DELETE /api/jobs/:id
-// @access  Private
+// desc =>    Delete a job
+// route =>   DELETE /api/jobs/:id
 const deleteJob = async (req, res, next) => {
   const { id } = req.params;
 

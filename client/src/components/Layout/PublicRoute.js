@@ -7,7 +7,6 @@ const PublicRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
 
   if (loading) {
-    // While checking authentication status, show a loading spinner
     return (
       <Box
         sx={{

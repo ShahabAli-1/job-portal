@@ -29,7 +29,7 @@ const Navbar = () => {
         </Typography>
         {user ? (
           <>
-            <Typography variant="body1" sx={{ mr: 2 }}>
+            <Typography variant="body1" sx={{ mr: 2, color: "white" }}>
               Hello, {user.username}
             </Typography>
             <Button color="inherit" onClick={handleLogout}>

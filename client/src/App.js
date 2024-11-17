@@ -11,7 +11,7 @@ import RegisterPage from "./pages/RegisterPage";
 import Home from "./pages/Home";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/Layout/PrivateRoute";
-import PublicRoute from "./components/Layout/PublicRoute"; // Import PublicRoute
+import PublicRoute from "./components/Layout/PublicRoute";
 
 const App = () => {
   return (
@@ -49,7 +49,7 @@ const App = () => {
             }
           />
 
-          {/* Optional: Add a catch-all route for undefined paths */}
+          {/* Catch-all route for undefined paths */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>

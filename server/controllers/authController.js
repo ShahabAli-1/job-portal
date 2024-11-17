@@ -1,13 +1,11 @@
 const User = require("../models/User");
 const generateToken = require("../utils/generateToken");
 
-// @desc    Register a new user
-// @route   POST /api/signup
-// @access  Public
+// desc =>    Register a new user
+// route =>   POST /api/signup
 const registerUser = async (req, res, next) => {
   const { username, email, password } = req.body;
 
-  // Basic validation
   if (!username || !email || !password) {
     res.status(400);
     return next(new Error("Please enter all fields"));
@@ -45,7 +43,6 @@ const registerUser = async (req, res, next) => {
         _id: user._id,
         username: user.username,
         email: user.email,
-        // No token in response body
       });
     } else {
       res.status(400);
@@ -58,24 +55,20 @@ const registerUser = async (req, res, next) => {
   }
 };
 
-// @desc    Authenticate user & set token in cookie
-// @route   POST /api/signin
-// @access  Public
+// desc =>    Authenticate user & set token in cookie
+// route =>   POST /api/signin
 const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
 
-  // Basic validation
   if (!email || !password) {
     res.status(400);
     return next(new Error("Please enter all fields"));
   }
 
   try {
-    // Check for user
     const user = await User.findOne({ email });
 
     if (user && (await user.matchPassword(password))) {
-      // Generate token
       const token = generateToken(user._id);
 
       // Set token in HTTP-only cookie
@@ -90,7 +83,6 @@ const loginUser = async (req, res, next) => {
         _id: user._id,
         username: user.username,
         email: user.email,
-        // No token in response body
       });
     } else {
       res.status(401);
@@ -103,9 +95,8 @@ const loginUser = async (req, res, next) => {
   }
 };
 
-// @desc    Logout user by clearing the token cookie
-// @route   POST /api/logout
-// @access  Private
+// desc =>    Logout user by clearing the token cookie
+// route =>   POST /api/logout
 const logoutUser = (req, res) => {
   res.cookie("token", "", {
     httpOnly: true,
@@ -116,9 +107,8 @@ const logoutUser = (req, res) => {
   res.json({ message: "Logged out successfully" });
 };
 
-// @desc    Get current logged-in user
-// @route   GET /api/user
-// @access  Private
+// desc =>    Get current logged-in user
+// route =>   GET /api/user
 const getCurrentUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id).select("-password");
@@ -135,9 +125,8 @@ const getCurrentUser = async (req, res, next) => {
   }
 };
 
-// @desc    Get CSRF token
-// @route   GET /api/csrf-token
-// @access  Public
+// desc =>    Get CSRF token
+// route =>   GET /api/csrf-token
 const getCsrfToken = (req, res) => {
   res.json({ csrfToken: req.csrfToken() });
 };
