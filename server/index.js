@@ -28,7 +28,6 @@ app.use(cookieParser());
 const csrfProtection = csurf({
   cookie: {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production", // Set to true in production
     sameSite: "strict",
   },
 });
