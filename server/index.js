@@ -25,13 +25,14 @@ app.use(
 app.use(cookieParser());
 
 // CSRF Protection
-const csrfProtection = csurf({
-  cookie: {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production", // Set to true in production
-    sameSite: "strict",
-  },
-});
+// const csrfProtection = csurf({
+//   cookie: {
+//     httpOnly: true,
+//     secure: process.env.NODE_ENV === "production", // Set to true in production
+//     sameSite: "strict",
+//   },
+// });
+const csrfProtection = csrf({ cookie: false }); // Disable cookie-based CSRF
 
 // Apply CSRF protection to state-changing routes
 // For APIs, CSRF protection is typically applied to POST, PUT, DELETE requests
