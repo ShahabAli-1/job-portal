@@ -17,7 +17,7 @@ export const JobProvider = ({ children }) => {
       setLoading(true);
       setError(null);
       try {
-        const res = await axios.get("/api/jobs");
+        const res = await axios.get("/jobs");
         setJobs(res.data);
       } catch (err) {
         setError(err.response?.data?.message || "Failed to fetch jobs");
@@ -39,10 +39,10 @@ export const JobProvider = ({ children }) => {
     setError(null);
     try {
       // Fetch CSRF token before creating a job
-      const csrfRes = await axios.get("/api/csrf-token");
+      const csrfRes = await axios.get("/csrf-token");
       const csrfToken = csrfRes.data.csrfToken;
 
-      const res = await axios.post("/api/jobs", jobData, {
+      const res = await axios.post("/jobs", jobData, {
         headers: {
           "Content-Type": "application/json",
           "X-CSRF-Token": csrfToken,
@@ -62,10 +62,10 @@ export const JobProvider = ({ children }) => {
     setError(null);
     try {
       // Fetch CSRF token before updating a job
-      const csrfRes = await axios.get("/api/csrf-token");
+      const csrfRes = await axios.get("/csrf-token");
       const csrfToken = csrfRes.data.csrfToken;
 
-      const res = await axios.put(`/api/jobs/${id}`, updatedData, {
+      const res = await axios.put(`/jobs/${id}`, updatedData, {
         headers: {
           "Content-Type": "application/json",
           "X-CSRF-Token": csrfToken,
@@ -86,10 +86,10 @@ export const JobProvider = ({ children }) => {
     setError(null);
     try {
       // Fetch CSRF token before deleting a job
-      const csrfRes = await axios.get("/api/csrf-token");
+      const csrfRes = await axios.get("/csrf-token");
       const csrfToken = csrfRes.data.csrfToken;
 
-      await axios.delete(`/api/jobs/${id}`, {
+      await axios.delete(`/jobs/${id}`, {
         headers: {
           "Content-Type": "application/json",
           "X-CSRF-Token": csrfToken,
