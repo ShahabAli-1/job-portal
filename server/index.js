@@ -25,13 +25,13 @@ app.use(
 app.use(cookieParser());
 
 // CSRF Protection
-const csrfProtection = csurf({
-  cookie: false,
-});
+// const csrfProtection = csurf({
+//   cookie: false,
+// });
 
 // Apply CSRF protection to state-changing routes
 // For APIs, CSRF protection is typically applied to POST, PUT, DELETE requests
-app.use("/api", csrfProtection);
+// app.use("/api", csrfProtection);
 
 // Routes
 const authRoutes = require("./routes/auth");
