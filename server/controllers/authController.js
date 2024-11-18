@@ -34,9 +34,9 @@ const registerUser = async (req, res, next) => {
       // Set token in HTTP-only cookie
       res.cookie("token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production", // Set to true in production
-        sameSite: "strict",
-        maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+        // secure: process.env.NODE_ENV === "production", // Set to true in production
+        // sameSite: "strict",
+        // maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
       });
 
       res.status(201).json({
@@ -74,9 +74,9 @@ const loginUser = async (req, res, next) => {
       // Set token in HTTP-only cookie
       res.cookie("token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production", // Set to true in production
-        sameSite: "strict",
-        maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+        // secure: process.env.NODE_ENV === "production", // Set to true in production
+        // sameSite: "strict",
+        // maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
       });
 
       res.json({
@@ -100,9 +100,9 @@ const loginUser = async (req, res, next) => {
 const logoutUser = (req, res) => {
   res.cookie("token", "", {
     httpOnly: true,
-    expires: new Date(0),
-    sameSite: "strict",
-    secure: process.env.NODE_ENV === "production",
+    // expires: new Date(0),
+    // sameSite: "strict",
+    // secure: process.env.NODE_ENV === "production",
   });
   res.json({ message: "Logged out successfully" });
 };
