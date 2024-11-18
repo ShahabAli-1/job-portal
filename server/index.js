@@ -26,10 +26,7 @@ app.use(cookieParser());
 
 // CSRF Protection
 const csrfProtection = csurf({
-  cookie: {
-    httpOnly: true,
-    sameSite: "strict",
-  },
+  cookie: false,
 });
 
 // Apply CSRF protection to state-changing routes
