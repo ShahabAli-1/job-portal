@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("/api/user");
+        const res = await axios.get("/user");
         setUser(res.data);
       } catch (err) {
         setUser(null);
