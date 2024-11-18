@@ -33,12 +33,12 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     try {
       // Fetch CSRF token before login
-      const csrfRes = await axios.get("/api/csrf-token");
+      const csrfRes = await axios.get("/csrf-token");
       const csrfToken = csrfRes.data.csrfToken;
 
       // Perform login
       const res = await axios.post(
-        "/api/signin",
+        "/signin",
         { email, password },
         {
           headers: {
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
       );
 
       // Fetch the current user after successful login
-      const userRes = await axios.get("/api/user");
+      const userRes = await axios.get("/user");
       setUser(userRes.data);
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
@@ -65,12 +65,12 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     try {
       // Fetch CSRF token before registration
-      const csrfRes = await axios.get("/api/csrf-token");
+      const csrfRes = await axios.get("/csrf-token");
       const csrfToken = csrfRes.data.csrfToken;
 
       // Perform registration
       const res = await axios.post(
-        "/api/signup",
+        "/signup",
         { username, email, password },
         {
           headers: {
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
       );
 
       // Fetch the current user after successful registration
-      const userRes = await axios.get("/api/user");
+      const userRes = await axios.get("/user");
       setUser(userRes.data);
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed");
@@ -97,12 +97,12 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     try {
       // Fetch CSRF token before logout
-      const csrfRes = await axios.get("/api/csrf-token");
+      const csrfRes = await axios.get("/csrf-token");
       const csrfToken = csrfRes.data.csrfToken;
 
       // Perform logout
       await axios.post(
-        "/api/logout",
+        "/logout",
         {},
         {
           headers: {
